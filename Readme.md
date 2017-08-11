@@ -35,7 +35,7 @@ The Advisor Dashboard is a LTI tool in canvas that allows Professional and Facul
 
 ## Usage
 #### Initialization
-[User guide](7)
+[User guide][7]
 Demo video
 #### Maintenance
 - You need to update the CSV file mapping Student(SIS ID) and Advisor(SIS ID) every term.
