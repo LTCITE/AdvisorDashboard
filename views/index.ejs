@@ -1,0 +1,223 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Advisory Dashboard</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+  <link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+  <link rel="stylesheet" href="/advisordashboard_assets/css/main.css">
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <script type="text/javascript" src="/advisordashboard_assets/js/filter.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/plug-ins/1.10.15/pagination/ellipses.js"></script>
+</head>
+
+<body>
+  <br>
+  <div>
+    <div class="row" style="padding-left: 15px;">
+
+      <div class="col-md-4">
+        <label>Show Grades :</label><input type="checkbox" id="gradecheck" name="gradecheck" value="gradeCheck" onclick="gradeHide()">
+      </div>
+
+      <div class="col-md-4">
+        <div id="gradeCheckbox">
+          <label class "gradeCheckbox">Grades  : </label>
+          <input onchange="filterGrades()" name="grade" type="checkbox" value="A" checked>A
+          <input onchange="filterGrades()" name="grade" type="checkbox" value="B" checked>B
+          <input onchange="filterGrades()" name="grade" type="checkbox" value="C" checked>C
+          <input onchange="filterGrades()" name="grade" type="checkbox" value="D" checked>D
+          <input onchange="filterGrades()" name="grade" type="checkbox" value="F" checked>F
+        </div>
+      </div>
+      <div class="col-md-4">
+      </div>
+    </div>
+
+    <!-- studentRecords have been rendered from the controllers/index.js to display the data in tabular format -->
+    <div class="row1">
+      <div class="col-md-7">
+        <table border='1' id="studentTable" width=650>
+          <thead>
+            <tr>
+              <th>919#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Section ID</th>
+              <th class="hideGrade">Grade </th>
+              <th class="hidden">Percentage</th>
+              <th class="hidden">Course ID</th>
+              <th class="hidden">User ID</th>
+            </tr>
+          </thead>
+          <% studentRecords.forEach(function(record) { %>
+            <tr class="tabrow">
+              <td>
+                <%=record.sis_user_id %>
+              </td>
+              <td id="tabname">
+                <%=record.name.substr(record.name.indexOf(',')+1) %>
+              </td>
+              <td>
+                <%=record.name.substr(0,record.name.indexOf(',')) %>
+              </td>
+              <td>
+                <%=record.section_id.substr(0,8) %>
+              </td>
+              <td class="hideGrade">
+                <%=record.finalGrade%>
+              </td>
+              <td class="hidden">
+                <%=record.finalScore%>
+              </td>
+              <td class="hidden">
+                <%=record.courseID %>
+              </td>
+              <td class="hidden">
+                <%=record.userID %>
+              </td>
+
+            </tr>
+            <% }); %>
+              <%studentRecords = []%>
+                </tbody>
+        </table>
+
+      </div>
+      <div class="col-md-5">
+      </div>
+    </div>
+  </div>
+  <!-- Context card design -->
+  <div id="myModal" class="modal">
+
+    <!-- Context card content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close">&times;</span>
+        <div class="row">
+          <div class="col-sm-12">
+            <p style="font-weight: bold;text-align:center;" id='StudentName'></p>
+          </div>
+        </div>
+      </div>
+      <div id="containerElement"></div>
+    </div>
+
+  </div>
+  <!--courseNames have been rendered from controllers/index.js to list the course names in a tabular format and made hidden -->
+  <table border='1' id="courseTable" width=650 class="hidden">
+    <thead>
+      <tr>
+        <th>CourseName</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% courseNames.forEach(function(record) { %>
+        <tr class="coursetabrow">
+          <td>
+            <%=record%>
+          </td>
+        </tr>
+        <% }); %>
+
+    </tbody>
+  </table>
+
+  <script>
+    //---------------------------------THIS IS FOR CONTEXT CARD------------------------------------------------------
+
+    $('#studentTable tbody').on('click', 'tr', function () {
+      document.getElementById('containerElement').innerHTML = "";
+      modal.style.display = "block";
+
+      //copying the whole studentTable data into otable variable
+      otable = $('#studentTable').DataTable();
+      var studentData = [];
+
+      // copying the selected row to trData
+      var trData = otable.row(this).data().toString();
+      studentData = trData.split(',');
+      document.getElementById('containerElement').innerHTML = "";
+
+      //finding the total rows in studentTabletable
+      var rowValue = otable.page.info().recordsTotal;
+
+      //looping over the rowValue and storing student grades and percentages in an array
+      for (j = 0; j < rowValue; j++) {
+        var userDataArray = [];
+        var trTableData = otable.row(j).data().toString();
+        userDataArray = trTableData.split(',');
+        console.log("userids" + userDataArray);
+        if (studentData[7] == userDataArray[7]) {
+          userSectionIdArray.push(userDataArray[3]);
+          userGradeArray.push(userDataArray[4]);
+          userPercentageArray.push(userDataArray[5]);
+        }
+
+      }
+      document.getElementById('StudentName').innerHTML = studentData[1] + " " + studentData[2];
+
+      //copying the courseTable data to variable coursetemptabledata
+      var courseTempTableData = document.getElementById('courseTable').innerHTML;
+      var courseTempTableLength = document.getElementsByClassName('coursetabrow').length;
+      var courseTableArray = [];
+
+      $("table#courseTable tr").each(function () {
+        var arrayOfThisRow = [];
+        var tableData = $(this).find('td');
+        if (tableData.length > 0) {
+          tableData.each(function () { arrayOfThisRow.push($(this).text()); });
+          courseTableArray.push(arrayOfThisRow);
+        }
+      });
+
+      // looping on the userSectionIdArray length and divides the context card into div's and appends the course name, grade, percentage, assignment and attendance information 
+      for (i = 0; i < userSectionIdArray.length; i++) {
+        $('<div class="x" align="center" id="addedDiv_num' + i + '" />').appendTo('#containerElement');
+        $('<div class="courseCard" id="courseCard' + i + '" />').html('<h6>' + courseTableArray[i] + '</h6>').appendTo('#addedDiv_num' + i + '');
+        $('<div class="courseGrade" id="courseGrade' + i + '" />').html('<h5 class="col-sm-4" id="grade"><span>' + userGradeArray[i] + '</span></h5><h5 class="col-sm-8" id="percent">' + userPercentageArray[i] + '%</h5>').appendTo('#courseCard' + i + '');
+        $('<div class="AsgnOver" />').html('<p class="col-sm-12 asg" id="aso"><br /> Assignments Overview </p><h5 class="col-sm-6">' + 2 + '</h5><h5 class="col-sm-6">' + 3 + '</h5><p class="col-sm-6 asg">Missing</p><p class="col-sm-6 asg">Late</p>').appendTo('#courseGrade' + i + '');
+        $('<div class="AttendOver" />').html('<p class="col-sm-12 asg" id="ato"><br /> Attendance Overview </p><h5 class="col-sm-4">' + 3 + '</h5><h5 class="col-sm-4">' + 25 + '</h5><h5 class="col-sm-4">' + 28 + '</h5><p class="col-sm-4 asg">Absent</p><p class="col-sm-4 asg">Present</p><p class="col-sm-4 asg">Total</p>').appendTo('#courseGrade' + i + '');
+      }
+
+      //emptying all the arrays
+      userSectionIdArray = [];
+      userGradeArray = [];
+      userPercentageArray = [];
+    });
+
+
+    // Get the context card
+    var modal = document.getElementById('myModal');
+
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function () {
+      document.getElementById('containerElement').innerHTML = "";
+      modal.style.display = "none";
+
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal) {
+        document.getElementById('containerElement').innerHTML = "";
+        modal.style.display = "none";
+
+      }
+    }
+
+  </script>
+
+</body>
+
+</html>

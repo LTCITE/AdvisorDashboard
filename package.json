@@ -1,0 +1,42 @@
+{
+  "name": "AdvisoryDashboard",
+  "version": "0.0.1",
+  "description": "To create a dashboard for advisors",
+  "main": "app.js",
+  "dependencies": {
+    "async": "latest",
+    "body-parser": "latest",
+    "cookie-parser": "^1.4.3",
+    "ejs": "latest",
+    "express": "latest",
+    "morgan": "latest",
+    "nedb": "latest",
+    "request": "latest",
+	"pdfkit": "latest",
+	"bluebird": "latest",
+	"request-promise": "latest",
+	"mime": "latest",
+	"blob-stream": "latest",
+  "fast-csv" : "latest"
+  },
+  "author": "CITE",
+  "homepage": "http://nwmissouri.edu",
+  "repository": {
+    "type": "svn",
+    "url": "https://cite1.nwmissouri.edu:8443/svn/PhotoRoster_LTI/"
+  },
+  "license": "Apache-2.0",
+  "publisher": "nodepad++",
+  "engines": {
+    "node": "latest"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "should": "^11.1.1",
+    "supertest": "^2.0.1"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec ./test/controllers/*.js ./test/models/*.js"
+  }
+}

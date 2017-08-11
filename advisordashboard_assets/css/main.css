@@ -1,0 +1,196 @@
+/*body of the page*/
+body {
+margin: 0px 5px 0px 5px;
+}
+
+.dhn-info {
+    width: 100%;
+    display: inline-block;
+}
+
+.dhn-info .dhn-text p {
+    font-family: arial;
+    font-size: 15px;
+    margin: 0;
+    display: block;
+	float: left;
+}
+
+p { 
+	margin:0; 
+}
+
+.btn-group-lg>.btn, .btn-lg {
+	padding: 7px 7px !important;
+}
+
+/* student table rows */
+th,td{    
+    padding-left: 0.25cm;    
+}
+	
+.hidden
+{
+  display:none;  
+}
+
+/*filter by grade checkbox's*/
+#gradeCheckbox
+{
+    display:none;
+}
+
+.wrapper{
+    align-items:top;
+}
+
+/*css for context card*/
+.modal {
+    display: none; 
+    z-index: 1; /* Sit on top */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    left:33%;
+    background-color:white;
+    margin: auto;
+    padding: 0;
+    border: 1px black;
+    width: 32%;
+    height: auto;
+    overflow: auto;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: appear;
+    -webkit-animation-duration: 0.9s;
+    animation-name: appear;
+    animation-duration: 0.9s
+}
+
+/* Animation for course card to appear*/
+@-webkit-keyframes appear {
+    from {right:-30%; opacity:0} 
+    to {right:30%; opacity:1}
+}
+
+@keyframes appear {
+    from {right:-30%; opacity:0}
+    to {right:30%; opacity:1}
+}
+
+/* The Close Button for context box*/
+.close {
+    color: gray;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/*Context card header, body, footer*/
+
+.modal-header {
+    padding: 2px 16px;
+    background-color:#1565C0;
+    color: white;
+}
+
+.modal-body {
+    padding: 2px 16px;
+    }
+
+.modal-footer {
+    padding: 2px 16px;
+    color: white;
+}
+
+/*css for context card*/
+
+.context {
+    width: 40%;
+    height: 170px;
+    margin: 0 auto 1em auto;
+    padding: 0.5em;
+    border-radius: 1em;
+    border: 1px solid #ccc;
+}
+
+
+/*CSS for Each course card of contect box*/
+.x {
+height: 250px;
+  float: left;
+  width: 50%;
+  border-right: 1px solid gray;
+  border-bottom: 1px solid gray;
+  color:#1565C0;
+
+}
+
+.x:nth-child(odd) {
+  clear: left;
+  /*border: 1px solid gray;*/
+}
+
+/*To align the student table left */
+
+#studentTable_length
+{
+clear:left;
+float:left;
+}
+#studentTable_filter
+{
+clear:left;
+float:left;
+
+}#studentTable
+{
+clear:left;
+float:left;
+}
+
+/* css for elements inside course cards in context card*/
+h5  span{
+    color:white;
+    background: #2196F3;
+    padding: 3px;
+    font-weight: bold;
+    border-radius: 5px;
+    display:inline;
+}
+
+h6{
+  display: inline-block;
+text-overflow: ellipsis;
+word-wrap: break-word;
+overflow: hidden;
+max-height: 5em;
+}
+
+#percent{
+    text-align: left;
+    font-weight: bold; 
+}
+
+.asg{
+    font-size: 11px;
+    color:black;
+}
+
+h3{
+    margin-bottom: 0px;
+}
+
+
+
