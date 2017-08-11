@@ -1,5 +1,5 @@
 {
-  "name": "AdvisoryDashboard",
+  "name": "AdvisorDashboard",
   "version": "0.0.1",
   "description": "To create a dashboard for advisors",
   "main": "app.js",
@@ -19,11 +19,11 @@
 	"blob-stream": "latest",
   "fast-csv" : "latest"
   },
-  "author": "CITE",
+  "author": "Learning and Teaching Center - Professional Learning Studio",
   "homepage": "http://nwmissouri.edu",
   "repository": {
     "type": "svn",
-    "url": "https://cite1.nwmissouri.edu:8443/svn/PhotoRoster_LTI/"
+    "url": "<svn url>"
   },
   "license": "Apache-2.0",
   "publisher": "nodepad++",
